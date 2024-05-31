@@ -33,5 +33,16 @@ def create_train():
 
 
 create_train()
-print(f"Length of the features = {len(features)}")
-print(f"Length of the labels = {len(labels)}")
+print("Training done ----------------")
+
+features = np.array(features, dtype="object")
+labels = np.array(labels)
+
+face_recognizer = cv.face.LBPHFaceRecognizer_create()
+
+# Train the recognizer on the features list and the labels list
+face_recognizer.train(features, np.array(labels))
+
+face_recognizer.save("face_trained.yml")
+np.save("features.npy", features)
+np.save("labels.npy", labels)
